@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<!-- ~ Hibernate, Relational Persistence for Idiomatic Java ~ ~ License: 
+	GNU Lesser General Public License (LGPL), version 2.1 or later. ~ See the 
+	lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>. -->
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.kay.hibernate.entity">
+
+	<class name="Order" table="t_order">
+		<!-- 主键用id标签来描述 -->
+		<id name="id" column="id">
+			<!-- native会根据实际的数据库来采用具体的主键生成策略 -->
+			<generator class="native" />
+		</id>
+		<!-- 其他普通的字段用property来描述 -->
+		<property name="orderNo" type="string" column="order_no" />
+		<property name="orderMoney" type="int" column="order_money" />
+
+		<!-- 建立多对一的关系 -->
+		<many-to-one name="user" class="User" column="user_id"></many-to-one>
+
+	</class>
+
+</hibernate-mapping>

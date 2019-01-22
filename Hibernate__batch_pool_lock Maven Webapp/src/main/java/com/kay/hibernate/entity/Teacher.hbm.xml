@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<!-- ~ Hibernate, Relational Persistence for Idiomatic Java ~ ~ License: 
+	GNU Lesser General Public License (LGPL), version 2.1 or later. ~ See the 
+	lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>. -->
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.kay.hibernate.entity">
+
+	<class name="Teacher" table="t_teacher">
+		<!-- 主键用id标签来描述 -->
+		<id name="id" column="id">
+			<!-- native会根据实际的数据库来采用具体的主键生成策略 -->
+			<generator class="native" />
+		</id>
+		<property name="name" />
+
+		<set name="classesSet" table="t_teacher_classes" inverse="true"
+			cascade="save-update,delete">
+			<key column="teacher_id"></key>
+			<many-to-many column="classes_id" class="Classes"></many-to-many>
+		</set>
+
+		<!-- 局部的写法 -->
+		<query name="listTeacher">
+			<![CDATA[
+				from Teacher where id<2
+			]]>
+		</query>
+	</class>
+
+	<!-- 全局的写法 -->
+	<query name="wholeListTeacher">
+		from Teacher
+	</query>
+
+</hibernate-mapping>
